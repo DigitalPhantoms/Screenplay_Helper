@@ -1,0 +1,457 @@
+<style>
+/* ===== GENERAL LAYOUT ===== */
+
+body {
+  background-color: #292929; /* Sidebar background */
+}
+
+.section {
+  margin-bottom: 10px;       /* Space between sections */
+  font-family: Courier New, sans-serif;
+}
+
+hr.section-separator {
+  border: none;
+  border-top: 2px solid #ccc;
+  margin: 15px 0;
+  width: 100%;
+}
+
+/* ===== HEADINGS ===== */
+
+h1 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: white;
+  font-family: Courier New, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  transition: color 0.2s;
+}
+
+/* ===== BUTTONS: GENERAL ===== */
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: Courier New, sans-serif;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+/* ===== BUTTON COLUMNS ===== */
+
+.button-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+/* ===== BUTTON GRIDS ===== */
+
+.transition-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  justify-items: center;
+  margin: 10px auto;
+  max-width: 600px;
+}
+
+/* ===== INSTRUCTIONAL DROPDOWN ===== */
+
+#instructions-heading {
+  font-weight: bold;
+  font-family: Courier New, sans-serif;
+  color: #ffffff;
+  user-select: none;
+  text-align: center;
+  style="cursor: pointer;
+  user-select: none;
+  margin-bottom: 6px;"
+  transition: color 0.2s;
+}
+
+#instructions-heading:hover {
+  color: #ff4500;
+}
+
+#instructions-content {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease, opacity 0.2s ease;
+  margin-left: 5px;
+  color: #ffffff;
+  font-size: 15px;
+}
+#instructions-content.expanded {
+  max-height: 1000px;
+  opacity: 1;
+}
+
+/* ===== FORMAT SCRIPT BUTTON ===== */
+
+#format-script {
+  width: 100%;
+  padding: 12px;
+  font-weight: bold;
+  background-color: #ff7000;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 12px;
+}
+
+#format-script:hover {
+  background-color: #ff0000;
+}
+
+/* ===== TITLE PAGE BUTTON ===== */
+
+.full-width-btn {
+  width: 100%;
+  padding: 12px;
+  font-weight: bold;
+  background-color: #ff7000;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.full-width-btn:hover {
+  background-color: #ff0000;
+}
+
+/* Shared input style for scene and title page fields */
+input[type="text"].input-field {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-right: 6px;
+  margin-bottom: 10px;
+}
+
+/* Centered button row */
+.center-btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 5px; 
+  margin-top: 5px;
+  flex-wrap: nowrap;
+}
+
+/* Insert and cancel buttons */
+.insert-btn {
+  background-color: #388e3c;
+  color: white;
+  transition: background 0.2s;
+}
+
+.insert-btn:hover {
+  background-color: #2e7031;
+}
+
+.cancel-btn {
+  background-color: #c62828;
+  color: white;
+  transition: background 0.2s;
+}
+
+.cancel-btn:hover {
+  background-color: #a31515;
+}
+
+/* ===== INTERTITLE SECTION ===== */
+
+.intertitle-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+input[type="text"]#intertitle-input {
+  width: calc(100% - 114px); /* Matches scene input width */
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-right: 6px;
+}
+
+#add-intertitle {
+  flex: 0 0 auto;
+  padding: 8px 12px;
+  font-size: 14px;
+  background-color: #4285f4;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+/* ===== SCENE SECTION ===== */
+
+/* Scene input row (input + add button) */
+.scene-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Scene input field */
+input[type="text"]#scene-input {
+  width: calc(100% - 114px);
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-right: 6px;
+}
+
+/* Add Scene Heading button */
+#add-scene {
+  flex: 0 0 auto;
+  padding: 8px 12px;
+  font-size: 14px;
+  background-color: #4285f4;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Scene list container */
+#scene-list {
+  margin-top: 10px;
+}
+
+/* Scene row (scene button + delete button) */
+.scene-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+/* Scene button style */
+.scene-btn {
+  background-color: #4285f4;
+  color: white;
+  text-transform: uppercase;
+  font-family: Courier New, sans-serif;
+  flex: 1;
+  margin-right: 8px;
+  height: 32px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* ===== ACTOR SECTION ===== */
+
+/* Actor input row (input + add button) */
+.actor-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Actor input field */
+input[type="text"]#actor-input {
+  width: calc(100% - 90px); /* Adjust based on button width */
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-right: 6px;
+}
+
+/* Add Actor button */
+#add-actor {
+  flex: 0 0 auto;
+  padding: 8px 12px;
+  font-size: 14px;
+  background-color: #4285f4;
+  color: white;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Actor list container */
+#actor-list {
+  margin-top: 10px;
+}
+
+/* Actor row (actor button + delete button) */
+.actor-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+/* Actor button style */
+.actor-btn {
+  background-color: #4285f4;
+  color: white;
+  text-transform: uppercase;
+  font-family: Courier New, sans-serif;
+  flex: 1;
+  margin-right: 8px;
+  height: 32px;
+}
+
+/* ===== DELETE BUTTON ===== */
+
+.del-btn {
+  background-color: #e53935;
+  color: white;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  user-select: none;
+}
+
+/* ===== INDENT BUTTONS ===== */
+
+.indent-btn {
+  background-color: #34a853;
+  color: white;
+  width: 48%;
+  margin: 4px 1%;
+  padding: 8px 0;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* ===== TRANSITION BUTTONS ===== */
+
+.transition-btn {
+  min-width: 130px;
+  height: 40px;
+  font-size: 14px;
+  background-color: #eb5757;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.transition-btn:hover {
+  background-color: #ff7000;
+}
+
+/* ===== SCRIPT BREAKDOWN BUTTONS ===== */
+
+#props-highlight-btn {
+  padding: 8px 12px;
+  font-size: 14px;
+  background-color: #914815; /* Brown */
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+#cast-highlight-btn {
+  padding: 8px 12px;
+  font-size: 14px;
+  background-color: #ff0404; /* Red */
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+#sound-highlight-btn {
+  padding: 8px 12px;
+  font-size: 14px;
+  background-color: #9b59b6; /* Purple */
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+#specialfx-highlight-btn {
+  padding: 8px 12px;
+  font-size: 14px;
+  background-color: #348aff; /* Blue */
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+#stunts-highlight-btn {
+  padding: 8px 12px;
+  font-size: 14px;
+  background-color: #e78900; /* Orange */
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+#vehiclesandanimals-highlight-btn {
+  padding: 8px 12px;
+  font-size: 14px;
+  background-color: #ff00d4; /* Pink */
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+#wardrobe-highlight-btn {
+  padding: 8px 12px;
+  font-size: 14px;
+  background-color: #00b005; /* Green */
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+/* ===== DISCLAIMER ===== */
+
+.disclaimer {
+  font-size: 12px;
+  color: #aaa; 
+  text-align: center;
+  margin-top: 25px;
+  font-style: italic;
+}
+</style>
