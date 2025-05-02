@@ -451,21 +451,16 @@ function getBreakdownSummary() {
   return summary;
 }
 
-/**
- * Inserts a breakdown summary table at the end of the document.
- */
 function insertBreakdownSummaryTable() {
   var summary = getBreakdownSummary();
   var doc = DocumentApp.getActiveDocument();
   var body = doc.getBody();
 
-  // Add a heading
   body.appendParagraph("Breakdown Summary").setHeading(DocumentApp.ParagraphHeading.HEADING1);
 
-  // Table header
   var table = body.appendTable();
   var headerRow = table.appendTableRow();
-  headerRow.appendTableCell('Scene');
+  headerRow.appendTableCell('Scene'); 
   headerRow.appendTableCell('Props');
   headerRow.appendTableCell('Cast');
   headerRow.appendTableCell('Sound');
@@ -474,10 +469,14 @@ function insertBreakdownSummaryTable() {
   headerRow.appendTableCell('Vehicles & Animals');
   headerRow.appendTableCell('Wardrobe');
 
-  // Fill rows
+  var sceneNumber = 1;  
   for (var scene in summary) {
     var row = table.appendTableRow();
-    row.appendTableCell(scene);
+
+    var numberedScene = sceneNumber + ' ' + scene;
+
+    row.appendTableCell(numberedScene);
+    
     row.appendTableCell(summary[scene].props.join(', '));
     row.appendTableCell(summary[scene].cast.join(', '));
     row.appendTableCell(summary[scene].sound.join(', '));
@@ -485,6 +484,8 @@ function insertBreakdownSummaryTable() {
     row.appendTableCell(summary[scene].stunts.join(', '));
     row.appendTableCell(summary[scene].vehiclesandanimals.join(', '));
     row.appendTableCell(summary[scene].wardrobe.join(', '));
+    
+    sceneNumber++;
   }
 }
 
