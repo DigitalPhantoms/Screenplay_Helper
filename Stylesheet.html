@@ -98,6 +98,7 @@ button {
 
 #format-script {
   width: 100%;
+  position: relative;
   padding: 12px;
   font-weight: bold;
   background-color: #ff7000;
@@ -106,8 +107,31 @@ button {
   margin-bottom: 12px;
 }
 
+#format-script::after {
+  content: "Format screenplay to industry standard Courier 12 and margins";
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
 #format-script:hover {
-  background-color: #ff0000;
+  background-color: #bf5400;
+}
+
+#format-script:hover::after {
+  visibility: visible;
+  opacity: 1;
 }
 
 /* ===== TITLE PAGE BUTTON ===== */
@@ -124,10 +148,34 @@ button {
   cursor: pointer;
   font-size: 14px;
   transition: background 0.2s;
+  position: relative;
 }
 
 .full-width-btn:hover {
-  background-color: #ff0000;
+  background-color: #bf5400;
+}
+
+.full-width-btn:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.full-width-btn::after {
+  content: attr(data-tooltip);
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 
 /* Shared input style for scene and title page fields */
@@ -181,7 +229,7 @@ input[type="text"].input-field {
 }
 
 input[type="text"]#intertitle-input {
-  width: calc(100% - 114px); /* Matches scene input width */
+  width: calc(100% - 114px);
   padding: 8px;
   font-size: 14px;
   border: 1px solid #ccc;
@@ -199,6 +247,34 @@ input[type="text"]#intertitle-input {
   border-radius: 4px;
   border: none;
   cursor: pointer;
+  position: relative;
+}
+
+#add-intertitle:hover {
+  background-color: #3569c2;
+}
+
+#add-intertitle:hover::after {
+  visibility: visible;
+  opacity: 1;
+}
+
+#add-intertitle::after {
+  content: "e.g. \"Christmas Day\" or \"A Week Ago\"";
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 25%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 
 /* ===== SCENE SECTION ===== */
@@ -231,6 +307,34 @@ input[type="text"]#scene-input {
   border-radius: 4px;
   border: none;
   cursor: pointer;
+  position: relative;
+}
+
+#add-scene:hover {
+  background-color: #3569c2;
+}
+
+#add-scene:hover::after {
+  visibility: visible;
+  opacity: 1;
+}
+
+#add-scene::after {
+  content: "Add recurring scenes";
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 0%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 
 /* Scene list container */
@@ -264,6 +368,10 @@ input[type="text"]#scene-input {
   justify-content: flex-start;
 }
 
+.scene-btn:hover {
+  background-color: #3569c2;
+}
+
 /* ===== ACTOR SECTION ===== */
 
 /* Actor input row (input + add button) */
@@ -294,6 +402,34 @@ input[type="text"]#actor-input {
   border-radius: 4px;
   border: none;
   cursor: pointer;
+  position: relative;
+}
+
+#add-actor:hover {
+  background-color: #3569c2;
+}
+
+#add-actor:hover::after {
+  visibility: visible;
+  opacity: 1;
+}
+
+#add-actor::after {
+  content: "Add recurring actors";
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 0%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 
 /* Actor list container */
@@ -319,6 +455,10 @@ input[type="text"]#actor-input {
   height: 32px;
 }
 
+.actor-btn:hover {
+  background-color: #3569c2;
+}
+
 /* ===== DELETE BUTTON ===== */
 
 .del-btn {
@@ -335,6 +475,10 @@ input[type="text"]#actor-input {
   user-select: none;
 }
 
+.del-btn:hover {
+  background-color: #a31515;
+}
+
 /* ===== INDENT BUTTONS ===== */
 
 .indent-btn {
@@ -345,6 +489,34 @@ input[type="text"]#actor-input {
   padding: 8px 0;
   border-radius: 4px;
   display: inline-block;
+  position: relative;
+}
+
+.indent-btn:hover {
+  background-color: #2e7031;
+}
+
+.indent-btn:hover::after {
+  visibility: visible;
+  opacity: 1;
+}
+
+.indent-btn::after {
+  content: "Indent element to correct margin";
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 
 /* ===== TRANSITION BUTTONS ===== */
@@ -360,10 +532,11 @@ input[type="text"]#actor-input {
   text-transform: uppercase;
   cursor: pointer;
   transition: background 0.2s;
+  position: relative;
 }
 
 .transition-btn:hover {
-  background-color: #ff7000;
+  background-color: #b54242;
 }
 
 /* ===== SCRIPT BREAKDOWN BUTTONS ===== */
@@ -379,6 +552,10 @@ input[type="text"]#actor-input {
   margin-bottom: 10px;
 }
 
+#props-highlight-btn:hover {
+  background-color: #713811;
+}
+
 #cast-highlight-btn {
   padding: 8px 12px;
   font-size: 14px;
@@ -388,6 +565,10 @@ input[type="text"]#actor-input {
   border: none;
   cursor: pointer;
   margin-bottom: 10px;
+}
+
+#cast-highlight-btn:hover {
+  background-color: #c10000;
 }
 
 #sound-highlight-btn {
@@ -401,6 +582,10 @@ input[type="text"]#actor-input {
   margin-bottom: 10px;
 }
 
+#sound-highlight-btn:hover {
+  background-color: #78458e;
+}
+
 #specialfx-highlight-btn {
   padding: 8px 12px;
   font-size: 14px;
@@ -410,6 +595,10 @@ input[type="text"]#actor-input {
   border: none;
   cursor: pointer;
   margin-bottom: 10px;
+}
+
+#specialfx-highlight-btn:hover {
+  background-color: #2a68bb;
 }
 
 #stunts-highlight-btn {
@@ -423,6 +612,10 @@ input[type="text"]#actor-input {
   margin-bottom: 10px;
 }
 
+#stunts-highlight-btn:hover {
+  background-color: #a96400;
+}
+
 #vehiclesandanimals-highlight-btn {
   padding: 8px 12px;
   font-size: 14px;
@@ -434,15 +627,23 @@ input[type="text"]#actor-input {
   margin-bottom: 10px;
 }
 
+#vehiclesandanimals-highlight-btn:hover {
+  background-color: #bc009c;
+}
+
 #wardrobe-highlight-btn {
   padding: 8px 12px;
   font-size: 14px;
-  background-color: #00b005; /* Green */
+  background-color: #00cb06; /* Green */
   color: white;
   border-radius: 5px;
   border: none;
   cursor: pointer;
   margin-bottom: 10px;
+}
+
+#wardrobe-highlight-btn:hover {
+  background-color: #009f05;
 }
 
 /* ===== DISCLAIMER ===== */
