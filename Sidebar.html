@@ -7,15 +7,12 @@
   <body>
 
 <div class="section">
-  <h1 id="instructions-heading" style="cursor:pointer;">How to Use</h1>
+  <h1 id="instructions-heading" style="cursor:pointer;">Getting Started</h1>
   <div id="instructions-content">
-    <h2 style="text-align:center">Getting Started</h2> 
     <ul>
       <p><b>Scene Headings</b>: Start each new scene with a heading like INT. HOUSE - DAY to indicate location and time.</p>
       <p><b>Scene Numbering</b>: Helpful for production, especially when revising or breaking down the script.</p>
       <p><b>Action Lines</b>: Describe what's happening visually in the scene, written in present tense.</p>
-      <p><b>Character Names</b>: Center and capitalize character names above their dialogue.</p>
-      <p><b>Dialogue</b>: Indent dialogue under the character name.</p>
       <p><b>Parentheticals</b>: Use sparingly to indicate how a line should be delivered or an action during dialogue.</p>
       <p><b>Transitions</b>: Use terms like CUT TO: or FADE OUT: to indicate scene changes.</p>
       <p><b>Page Length</b>: Aim for about one page per minute of screen time; typical feature scripts are 90-120 pages.</p>
@@ -24,6 +21,7 @@
       <h2 style="text-align:center">Tool Tips</h2>
       <p>Scenes can be navigated to directly via the document tabs.</p>
       <p>Use the Scene Elements buttons to indent the corresponding text to the correct indent.</p>
+      <p>Before inserting the Script Breakdown Summary table, return to each of your scenes and highlight accordingly.</p>
     </ul>
   </div>
 </div>
@@ -127,8 +125,8 @@ const content = document.getElementById('instructions-content');
 heading.onclick = function() {
   content.classList.toggle('expanded');
   heading.textContent = content.classList.contains('expanded')
-    ? "How to Use"
-    : "How to Use";
+    ? "Getting Started"
+    : "Getting Started";
 };
 
 
