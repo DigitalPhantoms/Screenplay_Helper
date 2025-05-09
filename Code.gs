@@ -156,14 +156,14 @@ function insertActorName(name) {
 
   var element = cursor.insertText(name.toUpperCase());
   var paragraph = element.getParent().asParagraph();
-  paragraph.setIndentStart(180);
-  paragraph.setIndentFirstLine(180);
+  paragraph.setIndentStart(216);
+  paragraph.setIndentFirstLine(216);
   paragraph.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
 
   var idx = body.getChildIndex(paragraph);
   var blankPara = body.insertParagraph(idx + 1, "");
-  blankPara.setIndentStart(108);
-  blankPara.setIndentFirstLine(108);
+  blankPara.setIndentStart(144);
+  blankPara.setIndentFirstLine(144);
   blankPara.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
 
   var newRangeBuilder = doc.newRange();
@@ -267,9 +267,9 @@ function applyIndent(type) {
 
   switch(type) {
     case 'ACTOR':
-      paragraph.setIndentStart(180);
-      paragraph.setIndentFirstLine(180);
-      paragraph.setIndentEnd(180);
+      paragraph.setIndentStart(216);
+      paragraph.setIndentFirstLine(216);
+      paragraph.setIndentEnd(216);
       break;
     case 'SCENE':
     case 'ACTION':
@@ -278,13 +278,13 @@ function applyIndent(type) {
       paragraph.setIndentEnd(36);
       break;
     case 'PARENTHETICAL':
-      paragraph.setIndentStart(144);
-      paragraph.setIndentFirstLine(144);
-      paragraph.setIndentEnd(144);
+      paragraph.setIndentStart(180);
+      paragraph.setIndentFirstLine(180);
+      paragraph.setIndentEnd(180);
       break;
     case 'DIALOGUE':
-      paragraph.setIndentStart(108);
-      paragraph.setIndentFirstLine(108); 
+      paragraph.setIndentStart(144);
+      paragraph.setIndentFirstLine(144); 
       paragraph.setIndentEnd(108);
       break;
     case 'TRANSITION':
