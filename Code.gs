@@ -106,7 +106,19 @@ function insertScreenplayElement(type, text) {
       paragraph.setIndentFirstLine(0);
       paragraph.setIndentEnd(0);
       paragraph.setAlignment(DocumentApp.HorizontalAlignment.RIGHT);
-      break;
+    var blankPara = body.insertParagraph(idx + 1, "");
+      blankPara.setFontFamily('Courier New');
+      blankPara.setFontSize(12);
+      blankPara.setSpacingBefore(0);
+      blankPara.setSpacingAfter(0);
+      blankPara.setIndentStart(36);
+      blankPara.setIndentFirstLine(36);
+      blankPara.setIndentEnd(36);
+      blankPara.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
+    var newRangeBuilder = doc.newRange();
+      newRangeBuilder.addElement(blankPara);
+      doc.setSelection(newRangeBuilder.build());
+      return;
 
     case 'FADE-IN':
       paragraph.setFontFamily('Courier New');
@@ -140,14 +152,25 @@ function insertActorName(name) {
     DocumentApp.getUi().alert('Place your cursor in the document.');
     return;
   }
-  var actorParagraph = cursor.insertText(name.toUpperCase() + "\n");
-  if (actorParagraph) {
-    var paragraph = actorParagraph.getParent();
-    paragraph.setIndentStart(180);
-    paragraph.setIndentFirstLine(180);
-    paragraph.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
-  }
+  var body = doc.getBody();
+
+  var element = cursor.insertText(name.toUpperCase());
+  var paragraph = element.getParent().asParagraph();
+  paragraph.setIndentStart(180);
+  paragraph.setIndentFirstLine(180);
+  paragraph.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
+
+  var idx = body.getChildIndex(paragraph);
+  var blankPara = body.insertParagraph(idx + 1, "");
+  blankPara.setIndentStart(108);
+  blankPara.setIndentFirstLine(108);
+  blankPara.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
+
+  var newRangeBuilder = doc.newRange();
+  newRangeBuilder.addElement(blankPara);
+  doc.setSelection(newRangeBuilder.build());
 }
+
 
 /* ============================================================================
    TITLE PAGE GENERATION
@@ -240,6 +263,8 @@ function applyIndent(type) {
   var paragraph = (element.getType() === DocumentApp.ElementType.PARAGRAPH) 
     ? element.asParagraph() 
     : element.getParent().asParagraph();
+      paragraph.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
+
   switch(type) {
     case 'ACTOR':
       paragraph.setIndentStart(180);
