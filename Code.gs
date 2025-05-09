@@ -164,6 +164,7 @@ function insertActorName(name) {
   var blankPara = body.insertParagraph(idx + 1, "");
   blankPara.setIndentStart(144);
   blankPara.setIndentFirstLine(144);
+  blankPara.setIndentEnd(108);
   blankPara.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
 
   var newRangeBuilder = doc.newRange();
