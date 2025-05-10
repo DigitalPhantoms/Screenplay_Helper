@@ -312,45 +312,65 @@ function applyIndent(type) {
   paragraph.setSpacingAfter(0);
   paragraph.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
 
-  switch(type) {
-    case 'ACTOR':
-      paragraph.setIndentStart(216);
-      paragraph.setIndentFirstLine(216);
-      paragraph.setIndentEnd(36);
-      break;
-    case 'SCENE':
-      paragraph.setIndentStart(36);
-      paragraph.setIndentFirstLine(36);
-      paragraph.setIndentEnd(36);
-      break;
-    case 'ACTION':
-      paragraph.setIndentStart(36);
-      paragraph.setIndentFirstLine(36);
-      paragraph.setIndentEnd(36);
-      break;
-    case 'PARENTHETICAL':
-      paragraph.setIndentStart(180);
-      paragraph.setIndentFirstLine(180);
-      paragraph.setIndentEnd(180);
-      break;
-    case 'DIALOGUE':
-      paragraph.setIndentStart(144);
-      paragraph.setIndentFirstLine(144); 
-      paragraph.setIndentEnd(108);
-      break;
+  var blankIndentStart = null;
+  var blankIndentFirstLine = null;
+  var blankIndentEnd = null;
+  var blankAlignment = paragraph.getAlignment();
+
+switch(type) {
+  case 'ACTOR':
+    paragraph.setIndentStart(216);
+    paragraph.setIndentFirstLine(216);
+    paragraph.setIndentEnd(36);
+    blankIndentStart = 216;
+    blankIndentFirstLine = 216;
+    blankIndentEnd = 36;
+    break;
+  case 'SCENE':
+    paragraph.setIndentStart(36);
+    paragraph.setIndentFirstLine(36);
+    paragraph.setIndentEnd(36);
+    blankIndentStart = 36;
+    blankIndentFirstLine = 36;
+    blankIndentEnd = 36;
+    break;
+  case 'ACTION':
+    paragraph.setIndentStart(36);
+    paragraph.setIndentFirstLine(36);
+    paragraph.setIndentEnd(36);
+    blankIndentStart = 36;
+    blankIndentFirstLine = 36;
+    blankIndentEnd = 36;
+    break;
+  case 'PARENTHETICAL':
+    paragraph.setIndentStart(180);
+    paragraph.setIndentFirstLine(180);
+    paragraph.setIndentEnd(180);
+    blankIndentStart = 144;
+    blankIndentFirstLine = 144;
+    blankIndentEnd = 72;
+    break;
+  case 'DIALOGUE':
+    paragraph.setIndentStart(144);
+    paragraph.setIndentFirstLine(144); 
+    paragraph.setIndentEnd(108);
+    blankIndentStart = 144;
+    blankIndentFirstLine = 144;
+    blankIndentEnd = 108;
+    break;
   }
   var blankPara = body.insertParagraph(idx + 1, "");
     blankPara.setFontFamily('Courier New');
     blankPara.setFontSize(12);
     blankPara.setSpacingBefore(0);
     blankPara.setSpacingAfter(0);
-    blankPara.setIndentStart(paragraph.getIndentStart());
-    blankPara.setIndentFirstLine(paragraph.getIndentFirstLine());
-    blankPara.setIndentEnd(paragraph.getIndentEnd());
-    blankPara.setAlignment(paragraph.getAlignment());
+    blankPara.setIndentStart(blankIndentStart !== null ? blankIndentStart : paragraph.getIndentStart());
+    blankPara.setIndentFirstLine(blankIndentFirstLine !== null ? blankIndentFirstLine : paragraph.getIndentFirstLine());
+    blankPara.setIndentEnd(blankIndentEnd !== null ? blankIndentEnd : paragraph.getIndentEnd());
+    blankPara.setAlignment(blankAlignment);
 
   var newPosition = doc.newPosition(blankPara, 0);
-  doc.setCursor(newPosition);
+    doc.setCursor(newPosition);
 }
 
 
