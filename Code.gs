@@ -51,23 +51,43 @@ function formatScript() {
   }
 }
 
-/** Inserts an intertitle at 72pt indent, all caps */
+/** Inserts an intertitle at 72pt indent, all caps, with cursor on new blank line */
 function insertIntertitle(text) {
   var doc = DocumentApp.getActiveDocument();
   var body = doc.getBody();
-  var intertitleText = "INTERTITLE: " + text.toUpperCase();
   var cursor = doc.getCursor();
-  var element;
-  if (cursor) {
-    element = cursor.insertText(intertitleText);
-  } else {
-    element = body.appendParagraph(intertitleText);
+  if (!cursor) {
+    DocumentApp.getUi().alert('Place your cursor where you want to insert.');
+    return;
   }
-  if (element) {
-    element.setAttributes({
-      [DocumentApp.Attribute.INDENT_START]: 72
-    });
+
+  var intertitleText = "INTERTITLE: " + (text || "").toUpperCase();
+  var newText = cursor.insertText(intertitleText);
+  if (!newText) {
+    DocumentApp.getUi().alert('Could not insert text at cursor.');
+    return;
   }
+  var paragraph = newText.getParent().asParagraph();
+  paragraph.setFontFamily('Courier New');
+  paragraph.setFontSize(12);
+  paragraph.setSpacingBefore(0);
+  paragraph.setSpacingAfter(0);
+  paragraph.setIndentStart(36);
+  paragraph.setIndentFirstLine(36);
+  paragraph.setIndentEnd(0);
+  paragraph.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
+  var idx = body.getChildIndex(paragraph);
+  var blankPara = body.insertParagraph(idx + 1, "");
+  blankPara.setFontFamily('Courier New');
+  blankPara.setFontSize(12);
+  blankPara.setSpacingBefore(0);
+  blankPara.setSpacingAfter(0);
+  blankPara.setIndentStart(36);
+  blankPara.setIndentFirstLine(36);
+  blankPara.setIndentEnd(0);
+  blankPara.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
+  var newPosition = doc.newPosition(blankPara, 0);
+  doc.setCursor(newPosition);
 }
 
 /** Inserts a screenplay element (scene, transition, etc.) at the cursor */
@@ -95,7 +115,18 @@ function insertScreenplayElement(type, text) {
       paragraph.setIndentFirstLine(36);
       paragraph.setIndentEnd(36);
       paragraph.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
-      break;
+    var blankPara = body.insertParagraph(idx + 1, "");
+      blankPara.setFontFamily('Courier New');
+      blankPara.setFontSize(12);
+      blankPara.setSpacingBefore(0);
+      blankPara.setSpacingAfter(0);
+      blankPara.setIndentStart(36);
+      blankPara.setIndentFirstLine(36);
+      blankPara.setIndentEnd(36);
+      blankPara.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
+    var newPosition = doc.newPosition(blankPara, 0);
+      doc.setCursor(newPosition);
+      return;
 
     case 'TRANSITION':
       paragraph.setFontFamily('Courier New');
@@ -115,9 +146,8 @@ function insertScreenplayElement(type, text) {
       blankPara.setIndentFirstLine(36);
       blankPara.setIndentEnd(36);
       blankPara.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
-    var newRangeBuilder = doc.newRange();
-      newRangeBuilder.addElement(blankPara);
-      doc.setSelection(newRangeBuilder.build());
+    var newPosition = doc.newPosition(blankPara, 0);
+      doc.setCursor(newPosition);
       return;
 
     case 'FADE-IN':
@@ -129,20 +159,20 @@ function insertScreenplayElement(type, text) {
       paragraph.setIndentFirstLine(36);
       paragraph.setIndentEnd(0);
       paragraph.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
-      break;
+    var blankPara = body.insertParagraph(idx + 1, "");
+      blankPara.setFontFamily('Courier New');
+      blankPara.setFontSize(12);
+      blankPara.setSpacingBefore(0);
+      blankPara.setSpacingAfter(0);
+      blankPara.setIndentStart(36);
+      blankPara.setIndentFirstLine(36);
+      blankPara.setIndentEnd(0);
+      blankPara.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
+    var newPosition = doc.newPosition(blankPara, 0);
+      doc.setCursor(newPosition);
+      return;
   }
-
-  var blankPara = body.insertParagraph(idx + 1, "");
-  blankPara.setFontFamily('Courier New');
-  blankPara.setFontSize(12);
-  blankPara.setSpacingBefore(0);
-  blankPara.setSpacingAfter(0);
-  blankPara.setIndentStart(36);
-  blankPara.setIndentFirstLine(36);
-  blankPara.setIndentEnd(36);
-  blankPara.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
 }
-
 
 /** Inserts an actor name at the cursor, uppercased and indented */
 function insertActorName(name) {
@@ -167,11 +197,14 @@ function insertActorName(name) {
   blankPara.setIndentEnd(108);
   blankPara.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
 
-  var newRangeBuilder = doc.newRange();
-  newRangeBuilder.addElement(blankPara);
-  doc.setSelection(newRangeBuilder.build());
+  var newPosition = doc.newPosition(blankPara, 0);
+  doc.setCursor(newPosition);
+  
+  return {
+    elementIndex: idx + 1,
+    offset: 0
+  };
 }
-
 
 /* ============================================================================
    TITLE PAGE GENERATION
@@ -264,15 +297,26 @@ function applyIndent(type) {
   var paragraph = (element.getType() === DocumentApp.ElementType.PARAGRAPH) 
     ? element.asParagraph() 
     : element.getParent().asParagraph();
-      paragraph.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
+  var body = doc.getBody();
+  var idx = body.getChildIndex(paragraph);
+
+  paragraph.setFontFamily('Courier New');
+  paragraph.setFontSize(12);
+  paragraph.setSpacingBefore(0);
+  paragraph.setSpacingAfter(0);
+  paragraph.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
 
   switch(type) {
     case 'ACTOR':
       paragraph.setIndentStart(216);
       paragraph.setIndentFirstLine(216);
-      paragraph.setIndentEnd(216);
+      paragraph.setIndentEnd(36);
       break;
     case 'SCENE':
+      paragraph.setIndentStart(36);
+      paragraph.setIndentFirstLine(36);
+      paragraph.setIndentEnd(36);
+      break;
     case 'ACTION':
       paragraph.setIndentStart(36);
       paragraph.setIndentFirstLine(36);
@@ -288,14 +332,21 @@ function applyIndent(type) {
       paragraph.setIndentFirstLine(144); 
       paragraph.setIndentEnd(108);
       break;
-    case 'TRANSITION':
-      paragraph.setIndentStart(0);
-      paragraph.setIndentFirstLine(0);
-      paragraph.setIndentEnd(108);
-      paragraph.setAlignment(DocumentApp.HorizontalAlignment.RIGHT);
-      break;
   }
+  var blankPara = body.insertParagraph(idx + 1, "");
+    blankPara.setFontFamily('Courier New');
+    blankPara.setFontSize(12);
+    blankPara.setSpacingBefore(0);
+    blankPara.setSpacingAfter(0);
+    blankPara.setIndentStart(paragraph.getIndentStart());
+    blankPara.setIndentFirstLine(paragraph.getIndentFirstLine());
+    blankPara.setIndentEnd(paragraph.getIndentEnd());
+    blankPara.setAlignment(paragraph.getAlignment());
+
+  var newPosition = doc.newPosition(blankPara, 0);
+  doc.setCursor(newPosition);
 }
+
 
 /* ============================================================================
    SCRIPT BREAKDOWN HIGHLIGHTERS
