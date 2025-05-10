@@ -157,7 +157,10 @@ document.getElementById('add-intertitle').onclick = function() {
   const input = document.getElementById('intertitle-input');
   let value = input.value.trim();
   if (value) {
-    google.script.run.insertIntertitle(value);
+    google.script.run.withSuccessHandler(() => {
+      google.script.host.editor.focus();
+    })
+    .insertIntertitle(value);
     input.value = '';
   }
 };
@@ -174,9 +177,15 @@ document.getElementById('intertitle-input').addEventListener('keyup', function(e
       const type = button.getAttribute('data-type');
       const text = button.getAttribute('data-text') || '';
       if (type === 'transition') {
-        google.script.run.insertTransition(text);
+        google.script.run.withSuccessHandler(() => {
+          google.script.host.editor.focus();
+        })
+        .insertTransition(text);
       } else {
-        google.script.run.applyIndent(type);
+        google.script.run.withSuccessHandler(() => {
+          google.script.host.editor.focus();
+        })
+        .applyIndent(type);
     }
   });
 });
@@ -195,7 +204,11 @@ document.getElementById('intertitle-input').addEventListener('keyup', function(e
         btn.textContent = scene.toUpperCase();
         btn.className = 'scene-btn';
         btn.onclick = () => {
-          google.script.run.insertScreenplayElement('SCENE', scene.toUpperCase());
+          google.script.run
+            .withSuccessHandler(() => {
+              google.script.host.editor.focus();
+            })
+            .insertScreenplayElement('SCENE', scene.toUpperCase());
         };
 
         const delBtn = document.createElement('button');
@@ -250,7 +263,11 @@ document.getElementById('intertitle-input').addEventListener('keyup', function(e
         btn.textContent = actor;
         btn.className = 'actor-btn';
         btn.onclick = () => {
-        google.script.run.insertActorName(actor);
+        google.script.run
+          .withSuccessHandler(() => {
+            google.script.host.editor.focus();
+          })
+          .insertActorName(actor);
     };
 
       const delBtn = document.createElement('button');
@@ -296,7 +313,10 @@ google.script.run.withSuccessHandler(function(savedActors) {
     button.addEventListener('click', () => {
       const type = button.getAttribute('data-type');
       const text = button.getAttribute('data-text');
-    google.script.run.insertScreenplayElement(type, text);
+    google.script.run.withSuccessHandler(() => {
+      google.script.host.editor.focus();
+    })
+    .insertScreenplayElement(type, text);
   });
 });
 
