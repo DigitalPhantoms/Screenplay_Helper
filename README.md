@@ -2,6 +2,20 @@
 
 A Google Docs add-on for making a screenplay.
 
+# How to Use (Non Add-on store method)
+
+For the time being you can use this app by doing the following:
+1. Open any google doc
+2. Click on Extensions
+3. Click on App Scripts
+4. Click the + button to add a html file and rename it to Code.gs
+5. Copy and past the code in the Code.gs file here
+6. Click the + button to add a html file and rename it to Sidebar.html
+7. Copy and past the code in the Sidebar.html file here
+8. Click the + button to add a html file and rename it to Stylesheet.html
+9. Copy and past the code in the Stylesheet.html file here
+10. Click Run
+
 # Authors
 
 - [@DigitalPhantoms](https://github.com/DigitalPhantoms)
